@@ -11,10 +11,6 @@ class Elephant
     @image_url = args[:image_url]
   end
 
-  def shapes=(value)
-    @shapes = value
-  end
-
 end
 
 module ElephantParser
@@ -28,11 +24,12 @@ module ElephantParser
     @images.each do |object|
       if !object.shapes["shapes"].empty?
         image_link = object.image_url
-        p "****"
+        split = image_link.split("exercise/")[1]
+
         object.shapes["shapes"].each_with_index do |hash, i|
 
-          image = Magick::Image.read(image_link).first
-          bb = image.bounding_box
+          @image = Magick::Image.read(image_link).first
+          bb = @image.bounding_box
           bb.x = object.shapes["shapes"][i]["x"]
           bb.y = object.shapes["shapes"][i]["y"]
           bb.width = object.shapes["shapes"][i]["width"]
@@ -41,13 +38,13 @@ module ElephantParser
           gc = Magick::Draw.new
           gc.stroke('green')
           gc.fill_opacity(0)
+          gc.stroke_width(3)
 
           gc.rectangle(bb.x, bb.y, bb.x+bb.width, bb.y+bb.height)
 
-          gc.draw(image)
+          gc.draw(@image)
 
-          image.write('new-#{i}.gif')
-          exit
+          @image.write("new_photos/thumb-#{split}")
         end
       end
     end
