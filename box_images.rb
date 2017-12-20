@@ -3,8 +3,8 @@ require 'csv'
 require 'json'
 require_relative 'elephant'
 
-module ElephantParser
-  def self.parse(filename)
+module BoxElephants
+  def self.edit_images(filename)
     @images = []
 
     CSV.foreach(filename, headers: true, header_converters: :symbol) do |row|
@@ -43,5 +43,5 @@ module ElephantParser
   end
 end
 
-elephants = ElephantParser.parse('data.csv')
+elephants = BoxElephants.edit_images('data.csv')
 
