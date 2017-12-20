@@ -1,3 +1,5 @@
+require 'json'
+
 class Elephant
   attr_reader :image_url
   attr_accessor :shapes

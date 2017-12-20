@@ -28,7 +28,7 @@ module ElephantParser
           gc = Magick::Draw.new
           gc.stroke('green')
           gc.fill_opacity(0)
-          gc.stroke_width(3)
+          gc.stroke_width(2.5)
 
           gc.rectangle(bb.x, bb.y, bb.x+bb.width, bb.y+bb.height)
 
