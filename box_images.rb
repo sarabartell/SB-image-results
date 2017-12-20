@@ -28,6 +28,10 @@ module ElephantParser
 
         object.shapes["shapes"].each_with_index do |hash, i|
 
+          p image_link
+          p "******"
+
+
           @image = Magick::Image.read(image_link).first
           bb = @image.bounding_box
           bb.x = object.shapes["shapes"][i]["x"]
@@ -45,6 +49,10 @@ module ElephantParser
           gc.draw(@image)
 
           @image.write("new_photos/thumb-#{split}")
+
+          image_link = "new_photos/thumb-#{split}"
+          p "here"
+          p image_link
         end
       end
     end
