@@ -1,17 +1,7 @@
 require 'rmagick'
 require 'csv'
 require 'json'
-
-class Elephant
-  attr_reader :image_url
-  attr_accessor :shapes
-
-  def initialize(args={})
-    @shapes = JSON.parse(args[:annotation])
-    @image_url = args[:image_url]
-  end
-
-end
+require_relative 'elephant'
 
 module ElephantParser
   def self.parse(filename)
@@ -27,10 +17,6 @@ module ElephantParser
         split = image_link.split("exercise/")[1]
 
         object.shapes["shapes"].each_with_index do |hash, i|
-
-          p image_link
-          p "******"
-
 
           @image = Magick::Image.read(image_link).first
           bb = @image.bounding_box
@@ -51,8 +37,6 @@ module ElephantParser
           @image.write("new_photos/thumb-#{split}")
 
           image_link = "new_photos/thumb-#{split}"
-          p "here"
-          p image_link
         end
       end
     end
